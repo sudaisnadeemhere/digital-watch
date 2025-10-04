@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Digital Clock (JS Only, No Inline)</title>
+</head>
+<body>
+<script >
+
+  const style = document.createElement('style');
+  style.textContent = `
+    body {
+      background-color: black;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .clock {
+      color: lime;
+      font-family: 'Courier New', monospace;
+      font-size: 80px;
+      letter-spacing: 3px;
+      border: 3px solid lime;
+      padding: 20px 40px;
+      border-radius: 10px;
+      box-shadow: 0 0 20px lime;
+    }
+  `;
+  document.head.appendChild(style);
+
+ 
+  const clock = document.createElement('div');
+  clock.className = 'clock';
+  clock.textContent = '00:00:00 AM';
+  document.body.appendChild(clock);
+
+  
+  function updateClock() {
+    const now = new Date();
+    let hour = now.getHours();
+    let minutes = now.getMinutes();
+    let seconds = now.getSeconds();
+    let format = 'AM';
+
+    if (hour >= 12) {
+      format = 'PM';
+    }
+    if (hour > 12) {
+      hour -= 12;
+    } else if (hour === 0) {
+      hour = 12;
+    }
+
+    if (minutes < 10) minutes = '0' + minutes;
+    if (seconds < 10) seconds = '0' + seconds;
+
+    const timeString = `${hour}:${minutes}:${seconds} ${format}`;
+    clock.textContent = timeString;
+  }
+
+ 
+  updateClock();
+  setInterval(updateClock, 1000);
+</script>
+</body>
+</html>
